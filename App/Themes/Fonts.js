@@ -1,7 +1,16 @@
 const type = {
   base: 'Avenir-Book',
   bold: 'Avenir-Black',
-  emphasis: 'HelveticaNeue-Italic'
+  emphasis: 'HelveticaNeue-Italic',
+
+  asapBold: 'Asap-Bold',
+  asapBoldItalic: 'Asap-BoldItalic',
+  asapItalic: 'Asap-Italic',
+  asapMedium: 'Asap-Medium',
+  asapMediumItalic: 'Asap-MediumItalic',
+  asapRegular: 'Asap-Regular',
+  asapSemiBold: 'Asap-SemiBold',
+  asapSemiBoldItalic: 'Asap-SemiBoldItalic'
 }
 
 const size = {
@@ -12,10 +21,13 @@ const size = {
   h5: 20,
   h6: 19,
   input: 18,
-  regular: 17,
-  medium: 14,
-  small: 12,
-  tiny: 8.5
+  regular: 16,
+  medium: 15,
+  small: 13,
+  tiny: 8.5,
+
+  headerTitle1: 25,
+  headerTitle2: 20,
 }
 
 const style = {

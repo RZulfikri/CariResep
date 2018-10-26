@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'https://api.github.com/') => {
+const create = (baseURL = 'https://resep-app-server.herokuapp.com/api/') => {
   // ------
   // STEP 1
   // ------
@@ -38,6 +38,10 @@ const create = (baseURL = 'https://api.github.com/') => {
   const getRate = () => api.get('rate_limit')
   const getUser = (username) => api.get('search/users', {q: username})
 
+  const getBahan = (params) => api.get('bahan-resep', params)
+  const cariResep = (params) => api.get('cari-resep', params)
+  const detailResep = (params) => api.get('detail-resep', params)
+
   // ------
   // STEP 3
   // ------
@@ -54,7 +58,10 @@ const create = (baseURL = 'https://api.github.com/') => {
     // a list of the API functions from step 2
     getRoot,
     getRate,
-    getUser
+    getUser,
+    getBahan,
+    cariResep,
+    detailResep
   }
 }
 

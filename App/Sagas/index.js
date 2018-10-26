@@ -12,6 +12,10 @@ import { GithubTypes } from '../Redux/GithubRedux'
 
 import { startup } from './StartupSagas'
 import { getUserAvatar } from './GithubSagas'
+import { BahanTypes } from '../Redux/BahanRedux';
+import { getBahan, cariBahan } from './BahanSagas';
+import { ResepTypes, detailResepRequest } from '../Redux/ResepRedux';
+import { cariResep, detailResep, getListResep } from './ResepSagas';
 
 /* ------------- API ------------- */
 
@@ -27,6 +31,12 @@ export default function * root () {
     takeLatest(StartupTypes.STARTUP, startup),
 
     // some sagas receive extra parameters in addition to an action
-    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api)
+    takeLatest(GithubTypes.USER_REQUEST, getUserAvatar, api),
+
+    takeLatest(BahanTypes.GET_BAHAN_REQUEST, getBahan, api),
+    takeLatest(BahanTypes.CARI_BAHAN_REQUEST, cariBahan, api),
+    takeLatest(ResepTypes.CARI_RESEP_REQUEST, cariResep, api),
+    takeLatest(ResepTypes.DETAIL_RESEP_REQUEST, detailResep, api),
+    takeLatest(ResepTypes.GET_LIST_RESEP_REQUEST, getListResep, api)
   ])
 }

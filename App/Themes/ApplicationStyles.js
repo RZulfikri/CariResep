@@ -9,7 +9,7 @@ const ApplicationStyles = {
   screen: {
     mainContainer: {
       flex: 1,
-      backgroundColor: Colors.transparent
+      backgroundColor: Colors.background
     },
     backgroundImage: {
       position: 'absolute',
@@ -20,8 +20,8 @@ const ApplicationStyles = {
     },
     container: {
       flex: 1,
-      paddingTop: Metrics.baseMargin,
-      backgroundColor: Colors.transparent
+      // paddingTop: Metrics.baseMargin,
+      backgroundColor: Colors.background
     },
     section: {
       margin: Metrics.section,
@@ -74,6 +74,45 @@ const ApplicationStyles = {
     borderColor: Colors.ember,
     alignItems: 'center',
     textAlign: 'center'
+  },
+  orangeButtonContainer: {
+    height: 40,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.orange,
+    borderRadius: 25,
+    elevation: 2,
+    justifyContent: 'center'
+  },
+  greenButtonContainer: {
+    height: 40,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.green,
+    borderRadius: 10,
+    elevation: 2,
+    justifyContent: 'center'
+  },
+  orangeButtonTitle: {
+    fontFamily: Fonts.type.asapSemiBold,
+    fontSize: Fonts.size.regular,
+    color: Colors.white
+  },
+  greenButtonTitle: {
+    fontFamily: Fonts.type.asapSemiBold,
+    fontSize: Fonts.size.regular,
+    color: Colors.white
+  },
+  whiteButtonContainer: {
+    height: 40,
+    paddingHorizontal: 20,
+    backgroundColor: Colors.white,
+    borderRadius: 25,
+    elevation: 2,
+    justifyContent: 'center'
+  },
+  whiteButtonTittle: {
+    fontFamily: Fonts.type.asapSemiBold,
+    fontSize: Fonts.size.regular,
+    color: Colors.green
   }
 }
 
