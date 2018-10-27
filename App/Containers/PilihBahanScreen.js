@@ -35,8 +35,23 @@ class PilihBahanScreen extends Component {
     this.pageSearch = 0
   }
 
-  componentDidMount() {
-    this.props.getBahan()
+  componentWillMount() {
+    if (this.props.bahanGet.fetching === null) {
+      this.props.getBahan()
+    } else {
+      const {payload} = this.props.bahanGet
+
+      if (payload) {
+        const {data, meta} = payload
+        if (data && meta && meta.page === 0) {
+          this.setState({listBahan: data}, () => {
+            this.page = payload.meta.page
+          })
+        } else {
+          this.props.getBahan()
+        }
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps) {

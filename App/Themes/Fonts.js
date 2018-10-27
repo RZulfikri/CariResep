@@ -24,7 +24,7 @@ const size = {
   regular: 16,
   medium: 15,
   small: 13,
-  tiny: 8.5,
+  tiny: 11,
 
   headerTitle1: 25,
   headerTitle2: 20,

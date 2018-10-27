@@ -29,7 +29,7 @@ export const INITIAL_STATE = Immutable({
 /* ------------- Selectors ------------- */
 
 export const BahanSelectors = {
-  getData: state => state.data
+  getData: state => state.bahan.getBahan
 }
 
 /* ------------- Reducers ------------- */

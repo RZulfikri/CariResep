@@ -39,6 +39,10 @@ class ListResepScreen extends Component {
     this.page = props.navigation.state.params.meta.page
     this.onRefreshList = this.onRefreshList.bind(this)
     this.onLoadMore = this.onLoadMore.bind(this)
+
+    if (listResep.length === 0) {
+      this.onRefreshList()
+    }
   }
 
   static navigationOptions = ({ navigation }) => {

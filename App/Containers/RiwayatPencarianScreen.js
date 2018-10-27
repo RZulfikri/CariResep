@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView } from 'react-native'
+import { View, FlatList} from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -7,10 +7,12 @@ import { connect } from 'react-redux'
 // Styles
 import styles from './Styles/RiwayatPencarianScreenStyle'
 import Header from '../Components/Header'
+import RowItem from '../Components/RowItem'
 
 class RiwayatPencarianScreen extends Component {
   constructor(props) {
     super(props)
+    this.onPressItem = this.onPressItem.bind(this)
   }
 
   static navigationOptions = ({ navigation }) => {
@@ -19,24 +21,38 @@ class RiwayatPencarianScreen extends Component {
     }
   }
 
-  componentWillMount() {
-    console.tron.warn(this.props.listRiwayat)
+  onPressItem(cari) {
+    const params = {
+      meta: {
+        bahan: cari,
+        page: 0
+      }
+    }
+
+    this.props.navigation.navigate('ListResepScreen', params)
   }
 
-  render () {
+  render() {
+    const {riwayat} = this.props
     return (
-      <ScrollView style={styles.container}>
-        <KeyboardAvoidingView behavior='position'>
-          <Text>RiwayatPencarianScreen</Text>
-        </KeyboardAvoidingView>
-      </ScrollView>
+      <View style={styles.container}>
+        <FlatList
+          keyboardShouldPersistTaps={'handled'}
+          data={riwayat}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item }) => {
+            let search = JSON.parse(item.search).join(', ')
+            return <RowItem name={search} selected={true} date={item.time} onPress={() => this.onPressItem(JSON.parse(item.search))} />
+          }}
+        />
+      </View>
     )
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    riwayat: state.listRiwayat
+    riwayat: state.riwayat.listRiwayat
   }
 }
 

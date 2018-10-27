@@ -3,11 +3,14 @@ import { Colors, Fonts } from '../../Themes';
 
 export default StyleSheet.create({
   container: {
-    height: 40,
+    // height: 40,
+    paddingVertical: 10,
     backgroundColor: Colors.white,
     paddingHorizontal: 20,
-    alignItems: 'center',
     marginTop: 5,
+  },
+  containerMain: {
+    alignItems: 'center',
     flexDirection: 'row'
   },
   labelSelected: {
@@ -24,5 +27,11 @@ export default StyleSheet.create({
     width: 13,
     height: 13,
     tintColor: Colors.grey
+  },
+  textDate: {
+    flex: 1,
+    color: Colors.text,
+    fontSize: Fonts.size.tiny,
+    fontFamily: Fonts.type.asapRegular
   }
 })

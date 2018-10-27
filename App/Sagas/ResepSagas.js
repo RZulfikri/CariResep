@@ -10,8 +10,9 @@
 *    you'll need to define a constant in that file.
 *************************************************************/
 
-import { call, put } from 'redux-saga/effects'
+import { call, put, all } from 'redux-saga/effects'
 import ResepActions from '../Redux/ResepRedux'
+import RiwayatActios from '../Redux/RiwayatRedux'
 // import { ResepSelectors } from '../Redux/ResepRedux'
 
 export function * cariResep (api, action) {
@@ -19,7 +20,10 @@ export function * cariResep (api, action) {
   const response = yield call(api.cariResep, data)
 
   if (response.ok) {
-    yield put(ResepActions.cariResepSuccess(response.data))
+    yield all([
+      put(ResepActions.cariResepSuccess(response.data)),
+      put(RiwayatActios.addRiwayat(data))
+    ])
   } else {
     yield put(ResepActions.cariResepFailure(response))
   }

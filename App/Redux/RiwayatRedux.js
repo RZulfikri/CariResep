@@ -28,7 +28,7 @@ export const RiwayatSelectors = {
 
 export const addRiwayat = (state, { data }) => {
   let listRiwayat = [...state.listRiwayat]
-  listRiwayat.push(data)
+  listRiwayat.push({search: data.input, time: new Date()})
   return state.merge({ listRiwayat })
 }
 

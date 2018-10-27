@@ -59,7 +59,8 @@ export default StyleSheet.create({
     backgroundColor: Colors.green,
     paddingHorizontal: 12,
     justifyContent: 'center',
-    marginLeft: 5
+    marginLeft: 5,
+    marginTop: 5
   },
   tagTitle: {
     fontFamily: Fonts.type.asapRegular,
