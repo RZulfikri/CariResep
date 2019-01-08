@@ -2,7 +2,7 @@
 import apisauce from 'apisauce'
 
 // our "constructor"
-const create = (baseURL = 'http://127.0.0.1:5000/api/') => {
+const create = (baseURL = 'https://resep-app-server.herokuapp.com/api/') => {
   // ------
   // STEP 1
   // ------
