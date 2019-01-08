@@ -20,7 +20,7 @@ class PilihBahanScreen extends Component {
     this.state = {
       selected: [],
       listBahan: [],
-      loading: false,
+      loading: true,
       search: ''
     }
     this.onPressKonfirmBahan = this.onPressKonfirmBahan.bind(this)
@@ -32,19 +32,19 @@ class PilihBahanScreen extends Component {
 
     this.isSearch = false
     this.page = 0
-    this.pageSearch = 0
+    this.hasNext = true
   }
 
   componentWillMount() {
     if (this.props.bahanGet.fetching === null) {
       this.props.getBahan()
     } else {
-      const {payload} = this.props.bahanGet
+      const { payload } = this.props.bahanGet
 
       if (payload) {
-        const {data, meta} = payload
+        const { data, meta } = payload
         if (data && meta && meta.page === 0) {
-          this.setState({listBahan: data}, () => {
+          this.setState({ listBahan: data, loading: false }, () => {
             this.page = payload.meta.page
           })
         } else {
@@ -65,6 +65,9 @@ class PilihBahanScreen extends Component {
             listBahan = [].concat(bahanGet.payload.data)
             this.page = bahanGet.payload.meta.page
           } else {
+            if (bahanGet.payload.data.length === 0) {
+              this.hasNext = false
+            }
             listBahan = listBahan.concat(bahanGet.payload.data)
             this.page = bahanGet.payload.meta.page
           }
@@ -94,14 +97,14 @@ class PilihBahanScreen extends Component {
 
   onPressKonfirmBahan() {
     const { selected } = this.state
-    this.props.navigation.navigate('KonfirmBahanScreen', {selected, callbackRemove: this.callbackRemove})
+    this.props.navigation.navigate('KonfirmBahanScreen', { selected, callbackRemove: this.callbackRemove })
   }
 
   onPressItem(item) {
     let { selected } = this.state
 
-    if (selected.includes(item)) {
-      selectedIndex = selected.findIndex(data => data === item)
+    if (selected.map(data => data.id).includes(item.id)) {
+      selectedIndex = selected.map(data => data.id).findIndex(data => data === item.id)
       selected.splice(selectedIndex, 1)
     } else {
       selected.push(item)
@@ -123,25 +126,29 @@ class PilihBahanScreen extends Component {
   }
 
   onRefreshList() {
-    const {search} = this.state
+    const { search } = this.state
     if (search.length > 0) {
-      this.props.getBahan({ search })
+      this.props.getBahan({ page: 0, search })
     } else {
-      this.props.getBahan()
+      this.props.getBahan({ page: 0 })
     }
   }
 
   onLoadMore() {
-    const {search} = this.state
-    if (search.length > 0) {
-      this.props.getBahan({ page: this.page + 1, search })
-    } else {
-      this.props.getBahan({ page: this.page + 1 })
+    const { search, loading } = this.state
+    if (this.hasNext && !loading) {
+      this.page += 1
+      if (search.length > 0) {
+        this.props.getBahan({ page: this.page, search })
+      } else {
+        this.props.getBahan({ page: this.page })
+      }
     }
   }
 
   render() {
     const { selected, listBahan, loading, search } = this.state
+    console.tron.error(loading)
     return (
       <View style={styles.mainContainer}>
         <SearchBox onSearch={this.onSearch} value={search} />
@@ -151,10 +158,10 @@ class PilihBahanScreen extends Component {
           keyExtractor={(item, index) => index.toString()}
           extraData={this.state}
           renderItem={({ item }) => {
-            isSelected = selected.includes(item)
-            return <RowItem name={item} selected={isSelected} onPress={this.onPressItem} />
+            isSelected = selected.map(data => data.id).includes(item.id)
+            return <RowItem name={item.tag} data={item} selected={isSelected} onPress={this.onPressItem} />
           }}
-          refreshing={loading}
+          refreshing={this.page === 0 ? loading : false}
           onRefresh={this.onRefreshList}
           onEndReached={this.onLoadMore}
         />

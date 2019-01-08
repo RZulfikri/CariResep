@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ScrollView, Text, KeyboardAvoidingView, View, FlatList } from 'react-native'
+import { ScrollView, Text, KeyboardAvoidingView, View, FlatList, ActivityIndicator } from 'react-native'
 import { connect } from 'react-redux'
 // Add Actions - replace 'Your' with whatever your reducer is called :)
 // import YourActions from '../Redux/YourRedux'
@@ -17,10 +17,9 @@ class ListResepScreen extends Component {
     listResep = []
     input = []
 
-    const {params} = props.navigation.state
-
+    const { params } = props.navigation.state
     if (params) {
-      const {meta, data} = params
+      const { meta, data } = params
       if (data) {
         listResep = data
       }
@@ -37,6 +36,7 @@ class ListResepScreen extends Component {
     }
 
     this.page = props.navigation.state.params.meta.page
+    this.hasNext = true
     this.onRefreshList = this.onRefreshList.bind(this)
     this.onLoadMore = this.onLoadMore.bind(this)
 
@@ -62,6 +62,9 @@ class ListResepScreen extends Component {
             listResep = [].concat(listGetResep.payload.data)
             this.page = listGetResep.payload.meta.page
           } else {
+            if (listGetResep.payload.data.length === 0) {
+              this.hasNext = false
+            }
             listResep = listResep.concat(listGetResep.payload.data)
             this.page = listGetResep.payload.meta.page
           }
@@ -72,7 +75,6 @@ class ListResepScreen extends Component {
         }
         loading = false
       } else {
-        // loading
         loading = true
       }
     }
@@ -84,30 +86,41 @@ class ListResepScreen extends Component {
   }
 
   onRefreshList() {
-    const {input} = this.state
-    this.props.getListResep({input: JSON.stringify(input)})
+    const { input } = this.state
+    this.props.getListResep({ page: 0, bahan: `[${input.join(',')}]` })
   }
 
   onLoadMore() {
-    const {input} = this.state
-    this.props.getListResep({ page: this.page + 1, input: JSON.stringify(input) })
+    const { input } = this.state
+    if (this.hasNext) {
+      this.props.getListResep({ page: this.page + 1, bahan: `[${input.join(',')}]` })
+    }
   }
 
-  render () {
-    const {listResep, loading} = this.state
+  render() {
+    const { listResep, loading } = this.state
     return (
       <View style={styles.container}>
-        <FlatList 
-          style={{backgroundColor: Colors.background, paddingVertical: 5}}
-          contentContainerStyle={{backgroundColor: Colors.background}}
+        <FlatList
+          style={{ backgroundColor: Colors.background, paddingVertical: 5 }}
+          contentContainerStyle={{ backgroundColor: Colors.background, flexGrow: 1 }}
           data={listResep}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             return <BigItem data={item} />
           }}
-          refreshing={loading}
+          refreshing={this.page === 0 ? loading : false}
           onRefresh={this.onRefreshList}
           onEndReached={this.onLoadMore}
+          ListFooterComponent={() => {
+            if (listResep.length > 0 && loading) {
+              return (<View style={{ height: 40, justifyContent: 'center' }}>
+                <ActivityIndicator size='large' />
+              </View>)
+            } else {
+              return <View />
+            }
+          }}
         />
       </View>
     )

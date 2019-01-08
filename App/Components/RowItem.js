@@ -6,16 +6,16 @@ import { Images } from '../Themes';
 import moment from 'moment'
 
 const RowItem = (props) => {
-  const { name, onPress, selected, showRemove, disabled, onRemoveItem, date } = props
+  const { name, onPress, selected, showRemove, disabled, onRemoveItem, date, data } = props
   return (
-    <TouchableOpacity disabled={disabled} activeOpacity={0.5} onPress={() => onPress(name)} style={styles.container}>
+    <TouchableOpacity disabled={disabled} activeOpacity={0.5} onPress={() => onPress(data)} style={styles.container}>
       <View style={styles.containerMain}>
         <Text style={[styles.label, selected && styles.labelSelected]}>{name}</Text>
         {showRemove && <TouchableOpacity activeOpacity={0.8} onPress={onRemoveItem}>
           <Image source={Images.iconClose} style={styles.iconRemove} />
         </TouchableOpacity>}
       </View>
-      {date && <Text style={styles.textDate}>{moment(date).format('DD-MM-YYYY')}</Text>}
+      {date && <Text style={styles.textDate}>{moment(date).format('DD-MM-YYYY, hh:mm')}</Text>}
     </TouchableOpacity>
   )
 }

@@ -5,16 +5,19 @@ export default StyleSheet.create({
   container: {
     marginVertical: 5,
     backgroundColor: Colors.white,
-    elevation: 2
+    elevation: 2,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   authorPhoto: {
     width: 28,
-    height: 28, 
+    height: 28,
     borderRadius: 14,
     marginRight: 5
   },
   containerAuthor: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     height: 44,
     alignItems: 'center',
     paddingHorizontal: 15
@@ -66,5 +69,21 @@ export default StyleSheet.create({
     fontFamily: Fonts.type.asapRegular,
     fontSize: Fonts.size.small,
     color: Colors.white
+  },
+  boxCount: {
+    width: 25,
+    height: 25,
+    borderRadius: 5,
+    backgroundColor: Colors.green,
+    marginLeft: 5,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  textCount: {
+    // flex: 1,
+    fontFamily: Fonts.type.asapSemiBold,
+    fontSize: Fonts.size.small,
+    color: Colors.white,
+    textAlignVertical: 'center'
   },
 })

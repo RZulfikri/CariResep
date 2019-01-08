@@ -3,6 +3,8 @@ import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 import styles from './Styles/SmallItemStyle'
 import { withNavigation } from 'react-navigation'
+import { connect } from 'react-redux'
+import ResepActions from '../Redux/ResepRedux'
 
 class SmallItem extends Component {
   constructor(props) {
@@ -11,6 +13,7 @@ class SmallItem extends Component {
   }
 
   onPressItem() {
+    this.props.detailResep({ id_resep: this.props.data.id_resep })
     this.props.navigation.navigate('DetailResepScreen', this.props.data)
   }
 
@@ -19,23 +22,27 @@ class SmallItem extends Component {
     return (
       <TouchableOpacity onPress={this.onPressItem} activeOpacity={0.9} style={styles.container}>
         <View style={styles.containerAuthor}>
-          <Image
-            source={{ uri: author_photo }}
-            style={styles.authorPhoto}
-            resizeMethod={'resize'}
-            resizeMode={'cover'}
-          />
+          <View style={styles.authorPhoto}>
+            {author_photo && <Image
+              source={{ uri: author_photo }}
+              style={styles.authorPhoto}
+              resizeMethod={'resize'}
+              resizeMode={'cover'}
+            />}
+          </View>
           <Text style={styles.textAuthor} ellipsizeMode={'tail'} numberOfLines={1}>{author}</Text>
           <View style={styles.boxCount}>
             <Text style={styles.textCount}>{match_count}</Text>
           </View>
         </View>
-        <Image
-          source={{ uri: photo }}
-          style={styles.photo}
-          resizeMethod={'resize'}
-          resizeMode={'cover'}
-        />
+        <View style={styles.photo}>
+          {photo && <Image
+            source={{ uri: photo }}
+            style={styles.photo}
+            resizeMethod={'resize'}
+            resizeMode={'cover'}
+          />}
+        </View>
         <View style={styles.containerBotom}>
           <Text style={styles.textJudul} ellipsizeMode={'tail'} numberOfLines={2}>{judul}</Text>
         </View>
@@ -44,4 +51,15 @@ class SmallItem extends Component {
   }
 }
 
-export default withNavigation(SmallItem)
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    detailResep: (params) => dispatch(ResepActions.detailResepRequest(params)),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withNavigation(SmallItem))

@@ -9,18 +9,19 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingHorizontal: 20,
     alignItems: 'center',
-    elevation: 2
+    elevation: 2,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   titleLeft: {
-    flex: 1,
     fontFamily: Fonts.type.asapBold,
     fontSize: Fonts.size.headerTitle1,
     color: Colors.orange,
     textAlign: 'left',
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',
   },
   titleRight: {
-    flex: 1,
     fontFamily: Fonts.type.asapBold,
     fontSize: Fonts.size.headerTitle2,
     color: Colors.orange,

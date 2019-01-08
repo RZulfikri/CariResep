@@ -15,21 +15,22 @@ import ResepActions from '../Redux/ResepRedux'
 import RiwayatActios from '../Redux/RiwayatRedux'
 // import { ResepSelectors } from '../Redux/ResepRedux'
 
-export function * cariResep (api, action) {
+export function* cariResep(api, action) {
   const { data } = action
-  const response = yield call(api.cariResep, data)
+  const bahan = data.bahan.map(item => item.id)
+  const response = yield call(api.cariResep, { bahan: `[${bahan.join(',')}]` })
 
-  if (response.ok) {
-    yield all([
-      put(ResepActions.cariResepSuccess(response.data)),
-      put(RiwayatActios.addRiwayat(data))
-    ])
-  } else {
-    yield put(ResepActions.cariResepFailure(response))
-  }
+if (response.ok) {
+  yield all([
+    put(ResepActions.cariResepSuccess(response.data)),
+    put(RiwayatActios.addRiwayat(data.bahan))
+  ])
+} else {
+  yield put(ResepActions.cariResepFailure(response))
+}
 }
 
-export function * detailResep (api, action) {
+export function* detailResep(api, action) {
   const { data } = action
   const response = yield call(api.detailResep, data)
 
@@ -40,7 +41,7 @@ export function * detailResep (api, action) {
   }
 }
 
-export function * getListResep (api, action) {
+export function* getListResep(api, action) {
   const { data } = action
   const response = yield call(api.cariResep, data)
 

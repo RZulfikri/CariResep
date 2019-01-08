@@ -1,4 +1,4 @@
-import { StackNavigator } from 'react-navigation'
+import { createStackNavigator } from 'react-navigation'
 import ArsipResepScreen from '../Containers/ArsipResepScreen'
 import RiwayatPencarianScreen from '../Containers/RiwayatPencarianScreen'
 import DetailResepScreen from '../Containers/DetailResepScreen'
@@ -49,7 +49,7 @@ const horizontalTrasition = () => ({
 })
 
 // Manifest of possible screens
-const PrimaryNav = StackNavigator({
+const PrimaryNav = createStackNavigator({
   ArsipResepScreen: { screen: ArsipResepScreen },
   RiwayatPencarianScreen: { screen: RiwayatPencarianScreen },
   DetailResepScreen: { screen: DetailResepScreen },
@@ -63,9 +63,9 @@ const PrimaryNav = StackNavigator({
     // headerMode: 'none',
     initialRouteName: 'HomeScreen',
     transitionConfig: horizontalTrasition,
-    navigationOptions: {
-      gesturesEnabled: false
-    }
+    // navigationOptions: {
+    //   gesturesEnabled: false
+    // }
   })
 
 export default PrimaryNav

@@ -24,7 +24,7 @@ class RiwayatPencarianScreen extends Component {
   onPressItem(cari) {
     const params = {
       meta: {
-        bahan: cari,
+        bahan: cari.map(item => item.id),
         page: 0
       }
     }
@@ -33,16 +33,16 @@ class RiwayatPencarianScreen extends Component {
   }
 
   render() {
-    const {riwayat} = this.props
+    const riwayat = [...this.props.riwayat]
     return (
       <View style={styles.container}>
         <FlatList
           keyboardShouldPersistTaps={'handled'}
-          data={riwayat}
+          data={riwayat.reverse()}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
-            let search = JSON.parse(item.search).join(', ')
-            return <RowItem name={search} selected={true} date={item.time} onPress={() => this.onPressItem(JSON.parse(item.search))} />
+            const search = item.search.map(item => item.tag).join(', ')
+            return <RowItem name={search} selected={true} data={item} date={item.time} onPress={() => this.onPressItem(item.search)} />
           }}
         />
       </View>

@@ -7,6 +7,7 @@ import { Images, Colors } from '../Themes';
 import { connect } from 'react-redux'
 
 import FavActions from '../Redux/FavoritRedux'
+import ResepActions from '../Redux/ResepRedux'
 
 class BigItem extends PureComponent {
   constructor(props) {
@@ -22,6 +23,7 @@ class BigItem extends PureComponent {
   }
 
   onPressItem() {
+    this.props.detailResep({ id_resep: this.props.data.id_resep })
     this.props.navigation.navigate('DetailResepScreen', this.props.data)
   }
 
@@ -38,27 +40,30 @@ class BigItem extends PureComponent {
   }
 
   render() {
-    const { author, author_photo, description, judul, photo, tag } = this.props.data
+    const { author, author_photo, description, judul, photo, tag, match_count } = this.props.data
     const { favItem } = this.props
     const { isFav } = this.state
     return (
       <TouchableOpacity onPress={this.onPressItem} activeOpacity={0.9} style={styles.container}>
         <TouchableWithoutFeedback>
           <View style={styles.containerAuthor}>
-            <Image
-              source={{ uri: author_photo }}
-              style={styles.authorPhoto}
-              resizeMethod={'resize'}
-              resizeMode={'cover'}
-            />
+            <View style={styles.authorPhoto}>
+              {author_photo && <Image
+                source={{ uri: author_photo }}
+                style={styles.authorPhoto}
+                resizeMethod={'resize'}
+                resizeMode={'cover'}
+              />}
+            </View>
             <Text style={styles.textAuthor} ellipsizeMode={'tail'} numberOfLines={1}>{author}</Text>
-            <TouchableOpacity onPress={this.onPressFav} activeOpacity={0.7} style={{ marginLeft: 8, justifyContent: 'center' }}>
-              {favItem ? <Image source={Images.iconFav} style={[{ width: 24.32, height: 30 }]} />
-                : <Image source={isFav ? Images.iconFav : Images.iconFavOutline} style={[{ width: 24.32, height: 30 }, !isFav && { tintColor: Colors.grey }]} />}
-            </TouchableOpacity>
+            <View style={styles.boxCount}>
+              <Text style={styles.textCount}>{match_count}</Text>
+            </View>
           </View>
         </TouchableWithoutFeedback>
-        <Image source={{ uri: photo }} style={styles.resepPhoto} resizeMethod={'resize'} resizeMode={'cover'} />
+        <View style={styles.resepPhoto}>
+          {photo && <Image source={{ uri: photo }} style={styles.resepPhoto} resizeMethod={'resize'} resizeMode={'cover'} />}
+        </View>
         <View style={styles.contentContainer}>
           <Text style={styles.textTitle}>{judul}</Text>
           <View style={styles.border} />
@@ -85,7 +90,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toogleFav: (params) => dispatch(FavActions.toogleFav(params))
+    toogleFav: (params) => dispatch(FavActions.toogleFav(params)),
+    detailResep: (params) => dispatch(ResepActions.detailResepRequest(params)),
   }
 }
 

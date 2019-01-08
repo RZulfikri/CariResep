@@ -64,30 +64,43 @@ class HomeScreen extends Component {
     const { loading, resultResep } = this.state
     return (
       <View style={[styles.container]}>
-        {loading && <ActivityIndicator
-          color={Colors.green}
-          size={30}
-          style={{ marginVertical: 10 }}
-        />}
         <FlatList
           ref={'flatlist'}
           data={resultResep}
           // extraData={this.state}
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{ flexGrow: 1, paddingTop: 70, justifyContent: resultResep.length === 0 ? 'center' : 'flex-end' }}
+          contentContainerStyle={{ flexGrow: 1, justifyContent: resultResep.length === 0 ? 'center' : 'flex-end' }}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
             return <View style={{ flex: 1 }}>
               <RowList data={item} />
             </View>
           }}
-          inverted
+          inverted={resultResep.length > 0}
           ListEmptyComponent={() => <View style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
             <Image source={Images.imageChef} style={{ width: 200, height: 200, marginBottom: 10 }} resizeMethod={'resize'} resizeMode={'cover'} />
             <Text style={styles.textInfo}>Belum ada resep nih.</Text>
             <Text style={styles.textInfo}>Yuk cari resep sekarang</Text>
           </View>}
           onContentSizeChange={() => this.refs.flatlist.scrollToEnd({ animated: true })}
+          ListFooterComponent={() => {
+            if (loading && resultResep.length > 0) {
+              return (<View style={{ height: 40, justifyContent: 'center', marginTop: 10 }}>
+                <ActivityIndicator size='large' />
+              </View>)
+            } else {
+              return <View />
+            }
+          }}
+          ListHeaderComponent={() => {
+            if (loading && resultResep.length === 0) {
+              return (<View style={{ height: 40, justifyContent: 'center', marginTop: 10 }}>
+                <ActivityIndicator size='large' />
+              </View>)
+            } else {
+              return <View />
+            }
+          }}
         />
         <View style={{ flexDirection: 'row', position: 'absolute', bottom: 20, right: 20 }}>
           <Button onPress={this.onPressMainButton} style={ApplicationStyles.orangeButtonContainer} titleStyle={ApplicationStyles.orangeButtonTitle} title={'Pilih Bahan'} />

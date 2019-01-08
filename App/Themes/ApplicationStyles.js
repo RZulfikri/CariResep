@@ -81,7 +81,10 @@ const ApplicationStyles = {
     backgroundColor: Colors.orange,
     borderRadius: 25,
     elevation: 2,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   greenButtonContainer: {
     height: 40,
@@ -89,7 +92,10 @@ const ApplicationStyles = {
     backgroundColor: Colors.green,
     borderRadius: 10,
     elevation: 2,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   orangeButtonTitle: {
     fontFamily: Fonts.type.asapSemiBold,
@@ -107,7 +113,10 @@ const ApplicationStyles = {
     backgroundColor: Colors.white,
     borderRadius: 25,
     elevation: 2,
-    justifyContent: 'center'
+    justifyContent: 'center',
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   whiteButtonTittle: {
     fontFamily: Fonts.type.asapSemiBold,

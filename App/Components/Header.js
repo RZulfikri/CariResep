@@ -33,7 +33,7 @@ class Header extends Component {
         {back && <TouchableOpacity onPress={this.onPressBack} activeOpacity={0.8} style={styles.iconBackContainer}>
           <Image source={Images.iconBack} style={styles.iconBack} />
         </TouchableOpacity>}
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1, justifyContent: 'center' }}>
           <Text numberOfLines={1} ellipsizeMode={'tail'} style={titleStyle}>{title}</Text>
         </View>
         {showMenu && <View style={{ flexDirection: 'row' }}>

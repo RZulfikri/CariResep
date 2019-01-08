@@ -31,7 +31,7 @@ class KonfirmBahanScreen extends Component {
 
   onPressCariResep() {
     const {input} = this.state
-    this.props.cariResep({input: JSON.stringify(input)})
+    this.props.cariResep({bahan: input})
     this.props.navigation.popToTop()
   }
 
@@ -64,7 +64,7 @@ class KonfirmBahanScreen extends Component {
           data={input}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => {
-            return <RowItem disabled name={item} selected onPress={this.onPressItem} showRemove onRemoveItem={() => this.onPressRemoveItem(item)} />
+            return <RowItem disabled name={item.tag} data={item} selected onPress={this.onPressItem} showRemove onRemoveItem={() => this.onPressRemoveItem(item)} />
           }}
         />
         {input.length > 0 && <View style={{ flexDirection: 'row', position: 'absolute', bottom: 20, right: 20 }}>

@@ -1,4 +1,4 @@
-package com.tanyaresep;
+package xyz.rahmatzulfikri.cariresep;
 
 import com.facebook.react.ReactActivity;
 

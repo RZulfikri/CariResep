@@ -26,7 +26,7 @@ class RowList extends Component {
       <View style={{ width: '100%', marginVertical: 10 }}>
         <View style={{paddingHorizontal: 10, paddingVertical: 10}}>
           <Text style={styles.textLabelInfo}>{data.meta.bahan.length} Bahan masakan dipilih :</Text>
-          <Text style={styles.textLabelBahan}>{data.meta.bahan.join(', ')}</Text>
+          <Text style={styles.textLabelBahan}>{data.bahan.map(item => item.tag).join(', ')}</Text>
         </View>
         <FlatList
           horizontal

@@ -8,16 +8,19 @@ export default StyleSheet.create({
     borderRadius: 10,
     elevation: 1,
     margin: 5,
-    backgroundColor: Colors.white
+    backgroundColor: Colors.white,
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.3,
+    shadowRadius: 1,
   },
   authorPhoto: {
     width: 28,
-    height: 28, 
+    height: 28,
     borderRadius: 14,
     marginRight: 5
   },
   containerAuthor: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     height: 44,
     alignItems: 'center',
     paddingHorizontal: 15
@@ -49,12 +52,12 @@ export default StyleSheet.create({
     height: 25,
     borderRadius: 5,
     backgroundColor: Colors.green,
-    marginLeft: 5, 
+    marginLeft: 5,
     justifyContent: 'center',
     alignItems: 'center'
   },
   textCount: {
-    flex: 1,
+    // flex: 1,
     fontFamily: Fonts.type.asapSemiBold,
     fontSize: Fonts.size.small,
     color: Colors.white,

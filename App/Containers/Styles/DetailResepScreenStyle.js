@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native'
 import { ApplicationStyles, Fonts, Colors } from '../../Themes/'
+import { Scale } from '../../Transforms/Scale';
 
 export default StyleSheet.create({
   photoResep: {
-    width: 375,
-    height: 266
+    width: Scale(375),
+    height: Scale(266)
   },
   containerMain: {
     paddingHorizontal: 20
@@ -22,12 +23,9 @@ export default StyleSheet.create({
   },
   containerTag: {
     flexDirection: 'row',
-    paddingVertical: 13,
     justifyContent: 'flex-end',
-    flexWrap: 'wrap'
-  },
-  containerBahan: {
-    paddingVertical: 13,
+    flexWrap: 'wrap',
+    marginVertical: 12
   },
   tagItems: {
     height: 25,
@@ -35,12 +33,16 @@ export default StyleSheet.create({
     backgroundColor: Colors.green,
     paddingHorizontal: 12,
     justifyContent: 'center',
-    marginLeft: 5
+    marginLeft: 5,
+    marginTop: 5
   },
   tagTitle: {
     fontFamily: Fonts.type.asapRegular,
     fontSize: Fonts.size.small,
     color: Colors.white
+  },
+  containerBahan: {
+    paddingVertical: 13,
   },
   textAuthor: {
     flex: 1,
